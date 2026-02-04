@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="deal.java" method="post">
+      <!-- 表单类型：-->
+      <!-- 普通输入框 -->
+      <div>
+        <!-- for属性绑定表单元素的id，让其获取焦点 -->
+        <label for="username">用户名：</label>
+        <input
+          type="text"
+          id="username"
+          placeholder="请输入用户名"
+          value="小黑"
+          autofocus
+        />
+      </div>
+      <!-- 单选框: name属性值要保持一致，才是同一组 -->
+      <div>
+        性别：
+        <input type="radio" name="sex" checked value="1" />男
+        <input type="radio" name="sex" value="0" />女
+      </div>
+      <!-- 多选框 -->
+      <div>
+        爱好：
+        <input type="checkbox" name="hobby" value="1" checked /> 篮球
+        <input type="checkbox" name="hobby" value="2" checked /> 台球
+        <input type="checkbox" name="hobby" value="3" /> 睡觉
+      </div>
+      <!-- 下拉框 -->
+      <div>
+        请选择省份：
+        <select>
+          <option value="">请选择</option>
+          <option value="1" selected>江西省</option>
+          <option value="2">广东省</option>
+          <option value="3">湖南省</option>
+        </select>
+      </div>
+      <!-- 文本域 -->
+      评论：<textarea rows="5" cols="30" placeholder="请友好评论"></textarea>
+
+      <!-- 文件上传 -->
+      <div>上传头像：<input type="file" /></div>
+      <!-- html5新增的：颜色、日期、邮箱 -->
+      <input type="color" value="#00ff00" />
+      <input type="date" />
+      <input type="time" />
+
+      <div>
+        <input type="submit" value="注册" />
+      </div>
+    </form>
+  </body>
+</html>

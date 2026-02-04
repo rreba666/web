@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #timeDisplay {
+            /* position: relative; */
+            margin: 10% auto;
+            height: 295px;
+            width: 608px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 52px;
+            letter-spacing: 2px;
+            font-family: 'Microsoft YaHei';
+            color: #ff006f;
+            border-radius: 30px;
+            background-color: rgba(8, 11, 210, 0.5);
+            /* background-image: url(./img/2871b47ab4699576af74108134e6a49f.jpg); */
+            background-size: 608px 295px;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            text-shadow:
+                1px 1px 0 #999,
+                2px 2px 0 #888,
+                3px 3px 0 #777;
+
+        }
+
+        .text {
+            width: 400px;
+            height: 600px;
+            border: solid 1px black;
+            background-color: #66ccff;
+        }
+
+        #timeDisplay:hover {
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="timeDisplay">
+        <div class="text">
+            <span>中国北京时间 UTC+8</span>
+
+        </div>
+    </div>
+
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+
+            const timeString = `${hours}:${minutes}:${seconds}`;
+
+            document.getElementById('timeDisplay').textContent = timeString;
+        }
+
+        updateTime();
+
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+
+</html>

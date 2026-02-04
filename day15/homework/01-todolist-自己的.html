@@ -1,0 +1,688 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>简洁待办事项</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+    }
+
+    body {
+      background-color: #f0f2f5;
+      color: #333;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .todo-container {
+      width: 100%;
+      max-width: 600px;
+      background-color: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+
+    /* 头部区域 */
+    .todo-header {
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      color: white;
+      padding: 30px 30px 25px;
+      text-align: center;
+    }
+
+    .todo-header h1 {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .todo-header h1 i {
+      font-size: 26px;
+    }
+
+    .todo-subtitle {
+      font-size: 15px;
+      opacity: 0.9;
+      font-weight: 400;
+    }
+
+    /* 任务统计 */
+    .todo-stats {
+      display: flex;
+      justify-content: space-between;
+      padding: 18px 30px;
+      background-color: #f8f9fa;
+      border-bottom: 1px solid #eaeaea;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .stat-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: #2575fc;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    /* 添加任务区域 */
+    .add-task-container {
+      padding: 25px 30px 20px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .add-task-form {
+      display: flex;
+      gap: 12px;
+    }
+
+    .task-input {
+      flex: 1;
+      padding: 16px 20px;
+      border: 2px solid #eaeaea;
+      border-radius: 10px;
+      font-size: 16px;
+      transition: all 0.3s;
+      outline: none;
+    }
+
+    .task-input:focus {
+      border-color: #6a11cb;
+      box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.1);
+    }
+
+    .add-btn {
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 0 28px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .add-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(106, 17, 203, 0.2);
+    }
+
+    .add-btn:active {
+      transform: translateY(0);
+    }
+
+    /* 任务列表 */
+    .tasks-container {
+      padding: 0 30px 25px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .task-list {
+      list-style: none;
+    }
+
+    .task-item {
+      display: flex;
+      align-items: center;
+      padding: 18px 0;
+      border-bottom: 1px solid #f5f5f5;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .task-item:last-child {
+      border-bottom: none;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .task-checkbox {
+      width: 22px;
+      height: 22px;
+      margin-right: 16px;
+      cursor: pointer;
+      accent-color: #6a11cb;
+    }
+
+    .task-content {
+      flex: 1;
+      font-size: 16px;
+      position: relative;
+    }
+
+    .task-text {
+      padding-right: 20px;
+      word-break: break-word;
+    }
+
+    .task-text.completed {
+      text-decoration: line-through;
+      color: #999;
+    }
+
+    .task-actions {
+      display: flex;
+      gap: 10px;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .task-item:hover .task-actions {
+      opacity: 1;
+    }
+
+    .action-btn {
+      background: none;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .edit-btn {
+      color: #2575fc;
+      background-color: rgba(37, 117, 252, 0.1);
+    }
+
+    .edit-btn:hover {
+      background-color: rgba(37, 117, 252, 0.2);
+    }
+
+    .delete-btn {
+      color: #ff4757;
+      background-color: rgba(255, 71, 87, 0.1);
+    }
+
+    .delete-btn:hover {
+      background-color: rgba(255, 71, 87, 0.2);
+    }
+
+    /* 编辑模式 */
+    .edit-input {
+      width: 100%;
+      padding: 10px 15px;
+      border: 2px solid #2575fc;
+      border-radius: 8px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    /* 空状态 */
+    .empty-state {
+      text-align: center;
+      padding: 50px 20px;
+      color: #999;
+    }
+
+    .empty-state i {
+      font-size: 60px;
+      margin-bottom: 20px;
+      color: #ddd;
+    }
+
+    .empty-state h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #777;
+    }
+
+    .empty-state p {
+      font-size: 15px;
+    }
+
+    /* 底部区域 */
+    .todo-footer {
+      padding: 20px 30px;
+      background-color: #f8f9fa;
+      text-align: center;
+      color: #666;
+      font-size: 14px;
+      border-top: 1px solid #eaeaea;
+    }
+
+    /* 响应式设计 */
+    @media (max-width: 640px) {
+      .todo-container {
+        border-radius: 12px;
+      }
+
+      .todo-header {
+        padding: 25px 20px 20px;
+      }
+
+      .todo-header h1 {
+        font-size: 24px;
+      }
+
+      .todo-stats,
+      .add-task-container,
+      .tasks-container {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .add-task-form {
+        flex-direction: column;
+      }
+
+      .add-btn {
+        padding: 16px 20px;
+        justify-content: center;
+      }
+
+      .task-actions {
+        opacity: 1;
+        /* 在移动端始终显示操作按钮 */
+      }
+    }
+
+    .hide {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="todo-container">
+    <!-- 头部 -->
+    <div class="todo-header">
+      <h1><i class="fas fa-tasks"></i> 简洁待办事项</h1>
+      <p class="todo-subtitle">高效管理您的每日任务</p>
+    </div>
+
+    <!-- 任务统计 -->
+    <div class="todo-stats">
+      <div class="stat-item">
+        <span class="stat-value" id="total-tasks">0</span>
+        <span class="stat-label">总任务</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value" id="pending-tasks">0</span>
+        <span class="stat-label">待完成</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value" id="completed-tasks">0</span>
+        <span class="stat-label">已完成</span>
+      </div>
+    </div>
+
+    <!-- 添加任务 -->
+    <!--<form onsubmit="return false" 点击提交表单的时候可阻止默认跳转行为> -->
+    <div class="add-task-container">
+
+      <div class="add-task-form" id="add-task-form">
+        <input 
+         type="text"
+         class="task-input" 
+         id="task-input" 
+         placeholder="输入新任务，按Enter添加" 
+         autocomplete="off" />
+        <button type="submit" class="add-btn">
+          <i class="fas fa-plus"></i> 添加
+        </button>
+
+      </div>
+    </div>
+
+    <!-- 任务列表 -->
+    <div class="tasks-container">
+      <ul class="task-list" id="task-list">
+        <!-- <li class="task-item">
+            <input type="checkbox" class="task-checkbox" />
+            <div class="task-content">
+              <div class="task-text">吃饭</div>
+            </div>
+            <div class="task-actions">
+              <button class="action-btn edit-btn" title="编辑任务">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="action-btn delete-btn" title="删除任务">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" />
+            <div class="task-content">
+               <div class="task-text">睡觉</div> 
+              <input type="text" class="edit-input" value="睡觉" />
+            </div>
+            <div class="task-actions">
+              <button class="action-btn edit-btn" title="编辑任务">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="action-btn delete-btn" title="删除任务">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          </li> -->
+
+        <!-- 空状态 -->
+        <li class="empty-state" id="empty-state">
+          <i class="fas fa-clipboard-list"></i>
+          <h3>暂无任务</h3>
+          <p>添加您的第一个待办事项</p>
+        </li>
+        <!-- 任务项会通过JS动态添加 -->
+      </ul>
+    </div>
+
+    <!-- 底部 -->
+    <div class="todo-footer">
+      <p>点击任务文本可以编辑，点击复选框标记完成</p>
+    </div>
+  </div>
+  <script>
+    // 缓存DOM节点
+    const taskListEle = document.getElementById('task-list')
+    const totalEle = document.getElementById('total-tasks')
+    const pendingEle = document.getElementById('pending-tasks')
+    const completedEle = document.getElementById('completed-tasks')
+    const addBtnEle = document.querySelector('.add-btn')
+    const taskInputEle = document.getElementById('task-input')
+    const emptyEle = document.getElementById('empty-state')
+
+    // 模拟真实的任务列表数据,来自于本地存储
+    let taskData = JSON.parse(localStorage.getItem('tasks')) || []
+    // let taskData = [
+    //   { id: 1, text: '吃饭', completed: true },
+    //   { id: 2, text: '睡觉', completed: true },
+    //   { id: 3, text: '打豆豆', completed: false },
+    // ]
+
+    // 页面加载后执行
+    document.addEventListener('DOMContentLoaded', function () {
+      renderTaskList()
+      renderTaskStatus()
+    })
+
+    // 渲染任务数量
+    function renderTaskStatus() {
+      // 总数量
+      totalEle.innerText = taskData.length
+      // 未完成数量
+      let pendingNum = taskData.filter((task) => !task.completed).length
+      pendingEle.innerText = pendingNum
+      // 已完成
+      completedEle.innerText = taskData.length - pendingNum
+    }
+
+    // 渲染任务列表
+    function renderTaskList() {
+      // 空提示
+      if (taskData.length === 0) {
+        taskListEle.innerHTML = emptyEle.outerHTML
+        return
+      }
+
+      let liHtml = ''
+      taskData.forEach((task) => {
+        liHtml += `
+            <li class="task-item">
+            <input type="checkbox"  task-id="${task.id}"  class="task-checkbox" ${task.completed ? 'checked' : ''}/>
+            <div class="task-content">
+              <div class="task-text ${task.completed && 'completed'}" task-id="${task.id}"  >${task.text}</div>
+              <input type="text" class="edit-input hide" value="${task.text}" />
+            </div>
+            <div class="task-actions">
+              <button class="action-btn edit-btn" task-id="${task.id}" title="编辑任务">
+                <i class="fas fa-edit" task-id="${task.id}"></i>
+              </button>
+              <button class="action-btn delete-btn" task-id="${task.id}" title="删除任务">
+                <i class="fas fa-trash-alt" task-id="${task.id}"></i>
+              </button>
+            </div>
+          </li>
+          `
+      })
+
+      // 设置到页面ul中
+      taskListEle.innerHTML = liHtml
+    }
+
+    // 添加任务
+    function addTask() {
+      let text = taskInputEle.value.trim()
+      if (!text) {
+        return
+      }
+      // 构造一个任务对象，在添加到任务列表数组中去
+      const taskItem = { id: Date.now(), text: text, completed: false }
+      taskData.push(taskItem)
+      taskInputEle.value = ''
+      // 重新渲染列表和数量
+      renderTaskStatus()
+      renderTaskList()
+      // 持久化到本地存储
+      saveTask()
+    }
+
+    // 持久化到本地存储
+    function saveTask() {
+      localStorage.setItem('tasks', JSON.stringify(taskData))
+    }
+
+    // 点击按钮发布任务
+    addBtnEle.addEventListener('click', function () {
+      addTask()
+    })
+
+    // 输入框enter回车键发布任务
+    taskInputEle.addEventListener('keyup', function (event) {
+      if (event.keyCode === 13) {
+        addTask()
+      }
+    })
+
+    // 点击事件委托给ul
+    taskListEle.addEventListener('click', function (event) {
+      let target = event.target
+      // 若目标元素是div，则退出此函数
+      if (
+        target.localName === 'div' &&
+        target.classList.contains('task-text')
+      ) {
+        return
+      }
+      console.log('ul 单击')
+      let isClickDel =
+        target.classList.contains('delete-btn') ||
+        target.classList.contains('fa-trash-alt')
+
+      let isClickEdit =
+        target.classList.contains('edit-btn') ||
+        target.classList.contains('fa-edit')
+
+      let isClickCheckbox = target.classList.contains('task-checkbox')
+
+      // 点击删除逻辑
+      if (isClickDel) {
+        if (!confirm('确认删除吗')) {
+          return
+        }
+
+        // 删除任务,获取删除的id，在进行filter过滤，把不是此id任务留下来
+        let taskId = parseInt(target.getAttribute('task-id'))
+        const newTaskData = taskData.filter((task) => task.id !== taskId)
+        taskData = newTaskData
+        renderTaskList()
+        renderTaskStatus()
+        // 持久化
+        saveTask()
+        return
+      }
+
+      // 点击复选框选中逻辑
+      if (isClickCheckbox) {
+        let taskId = parseInt(target.getAttribute('task-id'))
+        taskData = taskData.map((task) => {
+          if (task.id === taskId) {
+            task.completed = target.checked
+          }
+          return task
+        })
+        renderTaskList()
+        renderTaskStatus()
+        // 持久化
+        saveTask()
+        return
+      }
+
+      // 点击编辑逻辑
+      if (isClickEdit) {
+        let taskId = parseInt(target.getAttribute('task-id'))
+        // 找到对应的DOM节点:input和div节点
+        let liEle = null
+        if (target.localName === 'i') {
+          liEle = target.parentElement.parentElement.parentElement // li
+        }
+        if (target.localName === 'button') {
+          liEle = target.parentElement.parentElement // li
+        }
+        let divEle = liEle.querySelector('.task-text')
+        let inputEle = liEle.querySelector('.edit-input')
+
+        // 获取旧内容
+        let oldText = inputEle.value
+
+        // 多次对同一个节点元素通过addEventListener绑定事件会进行累加！
+        let inputBlurCallback = function () {
+          console.log('旧的内容', oldText)
+          console.log('最新的内容', this.value)
+          let newText = this.value.trim()
+          // 显示div,隐藏input
+          divEle.classList.remove('hide')
+          inputEle.classList.add('hide')
+          // 解绑失去焦点事件，为了防止触发多次
+          inputEle.removeEventListener('blur', inputBlurCallback)
+
+          // 更新文本：
+          // 1. 输入的内容和原内容一样，则不更新，
+          // 2. 若不一样则更新:改数据源、需要持久化、重新渲染
+          if (oldText !== newText) {
+            let taskId = parseInt(divEle.getAttribute('task-id'))
+            taskData = taskData.map((task) => {
+              if (task.id === taskId && newText !== '') {
+                task.text = newText
+              }
+              return task
+            })
+            // 重新渲染列表
+            renderTaskList()
+            // 持久化到本地存储
+            saveTask()
+          }
+        }
+
+        inputEle.addEventListener('blur', inputBlurCallback)
+
+        // 将输入框input显示，div文本内容隐藏
+        divEle.classList.add('hide')
+        inputEle.classList.remove('hide')
+        // input获取焦点并选中文本
+        inputEle.focus()
+        inputEle.select()
+      }
+    })
+
+    // 将div的双击事件委托给ul
+    taskListEle.addEventListener('dblclick', function (event) {
+      let target = event.target
+      if (
+        target.localName === 'div' &&
+        target.classList.contains('task-text')
+      ) {
+        // 说明是双击了div  target => div
+        let divEle = target
+        let inputEle = divEle.nextElementSibling
+
+        // 获取旧内容
+        let oldText = target.value
+
+        // 多次对同一个节点元素通过addEventListener绑定事件会进行累加！
+        let inputBlurCallback = function () {
+          console.log('旧的内容', oldText)
+          console.log('最新的内容', this.value)
+          let newText = this.value
+          // 显示div,隐藏input
+          divEle.classList.remove('hide')
+          inputEle.classList.add('hide')
+          // 解绑失去焦点事件，为了防止触发多次
+          inputEle.removeEventListener('blur', inputBlurCallback)
+
+          // 更新文本：
+          // 1. 输入的内容和原内容一样，则不更新，
+
+          // 2. 若不一样则更新:改数据源、需要持久化、重新渲染
+          if (oldText !== newText) {
+            let taskId = parseInt(divEle.getAttribute('task-id'))
+            taskData = taskData.map((task) => {
+              if (task.id === taskId) {
+                task.text = newText
+              }
+              return task
+            })
+            // 重新渲染列表
+            renderTaskList()
+            // 持久化到本地存储
+            saveTask()
+          }
+        }
+
+        inputEle.addEventListener('blur', inputBlurCallback)
+
+        // 将输入框input显示，div文本内容隐藏
+        divEle.classList.add('hide')
+        inputEle.classList.remove('hide')
+        // input获取焦点并选中文本
+        inputEle.focus()
+        inputEle.select()
+      }
+    })
+  </script>
+</body>
+
+</html>

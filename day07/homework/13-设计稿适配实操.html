@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    /* 
+      
+      适配思路：假设设计稿是750px,
+      1. 在根据媒体查询，在每个设备里面，将设备宽度除以15等分，再将每等分的结果作为根元素的字体大小
+      2. 将设计稿中的元素的单位转化成rem单位
+          元素rem = 在设计稿量取的px单位 / 在设计稿中每份的字体大小
+      */
+
+    /* IPHONE5 */
+    @media screen and (min-width: 320px) {
+      html {
+        font-size: 21.33333px;
+        /* 320/15=21.33333px (1rem = 21.33333px */
+      }
+    }
+
+    /* 其他设备 */
+    @media screen and (min-width: 360px) {
+      html {
+        font-size: 24px;
+        /* 360/15= 24px (1rem = 24px) */
+      }
+    }
+
+    /* IPHONE6/7/8 */
+    @media screen and (min-width: 375px) {
+      html {
+        font-size: 25px;
+        /* 375/15= 25px (1rem = 25px) */
+      }
+    }
+
+    /* IPHONE6/7/8 plus */
+    @media screen and (min-width: 414px) {
+      html {
+        font-size: 27.6px;
+        /* 414/15= 27.6px (1rem = 27.6px) */
+      }
+    }
+
+    /* pc端 不能超过750 */
+    @media screen and (min-width: 750px) {
+
+      /* 设计稿是750px */
+      html {
+        font-size: 50px;
+        /* 750/15= 50px (1rem = 50px) */
+      }
+    }
+
+    .container {
+      min-width: 320px;
+      max-width: 15rem;
+      height: 100vh;
+      background-color: #676869;
+      margin: 0 auto;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      width: 15rem;
+      /* 设计稿尺寸88px / 50px = 1.76 */
+      height: 1.76rem;
+      background-color: #fdb41d;
+      font-size: 0.5rem;
+      color: #fff;
+    }
+
+    .header .cate {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .header .cate img {
+      width: 0.74rem;
+      height: 0.64rem;
+    }
+
+    .header .search {
+      display: flex;
+      align-items: center;
+      width: 11.28rem;
+      height: 1.36rem;
+      background-color: #fef0c1;
+      color: #47484b;
+      border-radius: 2rem;
+      padding-left: 0.36rem;
+    }
+
+    .header .search img {
+      width: 0.64rem;
+      height: 0.64rem;
+    }
+
+    .header .search input {
+      border-width: 0;
+      outline: none;
+      background-color: #fef0c1;
+      height: 100%;
+      font-size: 0.5rem;
+    }
+
+    .container .img-wrap {
+      width: 15rem;
+      height: 5.6rem;
+    }
+
+    .container .img-wrap img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .setting {
+      width: 15rem;
+      height: 6.2rem;
+
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      flex-wrap: wrap;
+      background-color: #f1f1f1;
+    }
+
+    .box-common {
+      width: 2.3rem;
+      height: 2.7rem;
+      margin-left: 0.6rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.44rem;
+    }
+
+    .box-common img {
+      height: 1.16rem;
+      width: 1.28rem;
+    }
+
+    .box-common span {
+      padding-top: 0.4rem;
+    }
+
+    footer {
+      width: 15rem;
+      height: 2rem;
+      margin-top: 0.5rem;
+      position: relative;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      background-color: white;
+      top: -0.5rem;
+      left: 0;
+      right: 0;
+      height: 0.5rem;
+    }
+
+    footer img {
+      width: 15rem;
+      height: 2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- 头部开始 -->
+    <div class="header">
+      <div class="cate">
+        <img src="./images/cate.png" alt="" />
+        <span>分类</span>
+      </div>
+      <div class="search">
+        <img src="./images/search.png" alt="" />
+        <input type="text" placeholder="厨卫保暖季" />
+      </div>
+      <div class="login">登录</div>
+    </div>
+    <!-- 头部结束 -->
+
+    <!-- banner开始 -->
+    <div class="img-wrap">
+      <img src="./images/banner.png" alt="" />
+    </div>
+    <!-- banner结束 -->
+
+    <div class="setting">
+      <div class="box1 box-common">
+        <img src="./images/闹钟.png" alt="">
+        <span>天天低价</span>
+      </div>
+      <div class="box2 box-common">
+        <img src="./images/购物袋.png" alt="">
+        <span>苏宁超市</span>
+      </div>
+      <div class="box3 box-common">
+        <img src="./images/拼购_14.png" alt="">
+        <span>苏宁拼购</span>
+      </div>
+      <div class="box4 box-common">
+        <img src="./images/手机_03.png" alt="">
+        <span>5G手机</span>
+      </div>
+      <div class="box5 box-common">
+        <img src="./images/家电.png" alt="">
+        <span>苏宁家电</span>
+      </div>
+      <div class="box10 box-common">
+        <img src="./images/水果.png" alt="">
+        <span>免费水果</span>
+      </div>
+      <div class="box6 box-common">
+        <img src="./images/消消乐.png" alt="">
+        <span>赚钱消消乐</span>
+      </div>
+      <div class="box7 box-common">
+        <img src="./images/签到.png" alt="">
+        <span>签到有礼</span>
+      </div>
+      <div class="box8 box-common">
+        <img src="./images/优惠券.png" alt="">
+        <span>领券中心</span>
+      </div>
+      <div class="box9 box-common">
+        <img src="./images/频道.png" alt="">
+        <span>更多频道</span>
+      </div>
+
+    </div>
+
+    <footer>
+      <img src="./images/大礼包.png" alt="">
+    </footer>
+  </div>
+</body>
+
+</html>

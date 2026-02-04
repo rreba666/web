@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /* 分组选择器，用逗号隔开 */
+      #box1,
+      .title,
+      p {
+        color: red;
+      }
+
+      /* 后代选择器 （会找多层） */
+      /* .star ul {
+        border: 1px solid #ccc;
+      } */
+
+      /* 子元素选择器 （一层） */
+      .star > ul {
+        border: 1px solid #ccc;
+      }
+
+      /* p ~ span 匹配同一父元素下，p元素后的所有 span 元素。 */
+      p ~ span {
+        color: skyblue;
+      }
+
+      /* p元素后的第一个 span 元素 */
+      p + span {
+        border: 2px solid green;
+      }
+
+      /* 交集选择器 */
+      h5.title {
+        color: brown;
+      }
+    </style>
+  </head>
+  <body>
+    <h5 class="title">我是h5</h5>
+    <div id="big">
+      <p>p1</p>
+      <span>span1</span>
+      <span>span2</span>
+    </div>
+
+    <div id="box1">罗敏</div>
+    <h2 class="title">超哥</h2>
+    <p>段落</p>
+    <div>汪哥</div>
+    <div class="star">
+      <h2>演员列表</h2>
+      <ul>
+        <li>刘德华</li>
+        <li>黎明</li>
+        <li>
+          <h3>猪家庭</h3>
+          <ul>
+            <li>佩奇</li>
+            <li>乔治</li>
+          </ul>
+        </li>
+        <li>郭富城</li>
+        <li>张学友</li>
+      </ul>
+    </div>
+  </body>
+</html>

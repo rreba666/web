@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    .contianer {
+      width: 600px;
+      height: 300px;
+      border: 1px solid skyblue;
+      margin: 50px auto;
+    }
+
+    .menu .tab {
+      list-style-type: none;
+      float: left;
+      cursor: pointer;
+      width: 200px;
+      line-height: 50px;
+      text-align: center;
+      border: 1px solid #87ceeb;
+      box-sizing: border-box;
+    }
+
+    .content .main {
+      padding: 20px;
+      display: none;
+      text-indent: 20px;
+      word-wrap: break-word;
+    }
+
+    .content .selected {
+      display: block;
+    }
+
+    .active {
+      background-color: pink;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="contianer">
+    <div class="menu">
+      <ul>
+        <li class="tab active">HTML</li>
+        <li class="tab">Javascript</li>
+        <li class="tab">Vue</li>
+      </ul>
+    </div>
+    <div class="content">
+      <div class="main selected">HTML精品教程</div>
+      <div class="main">Javascript精品教程</div>
+      <div class="main">Vue项目实战</div>
+    </div>
+  </div>
+
+
+  <script>
+    let allTabEle = document.querySelectorAll('.tab')
+    let allContent = document.querySelectorAll('.content .main')
+
+    
+
+    for (let i = 0; i < allTabEle.length; i++) {
+      
+      allTabEle[i].addEventListener('mouseover', function () {
+        allContent[i].classList.add('selected')
+        allTabEle[i].classList.add('active')
+      })
+
+      allTabEle[i].addEventListener('mouseout', function () {
+        allContent[i].classList.remove('selected')
+        allTabEle[i].classList.remove('active')
+      })
+    }
+
+
+
+
+  </script>
+</body>
+
+</html>

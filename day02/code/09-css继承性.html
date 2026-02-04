@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #box {
+        /* 盒子属性不能被继承 */
+        border: 1px solid #ccc;
+
+        /* 以下属性都可以被子孙继承 */
+        color: red;
+        text-align: center;
+        font-style: italic;
+        font-size: 50px;
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box">
+      <h2>我是h2</h2>
+      <ul>
+        <li>佩奇</li>
+        <li>乔治</li>
+        <li>苏溪</li>
+      </ul>
+    </div>
+  </body>
+</html>

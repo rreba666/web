@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/c/font_5106173_92ij0yfwg4.css">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            list-style: none;
+            font: 12px/1.5 PingFang SC, Source Han Sans CN, Microsoft YaHei, Heiti SC, tahoma, arial, Hiragino Sans GB, "\5B8B\4F53", sans-serif;
+
+        }
+
+
+        .big-box {
+            width: 260px;
+            height: 352px;
+            margin: 100px auto;
+            position: relative;
+            padding-left: 6px;
+
+
+        }
+
+        .big-box:hover {
+            border: #ff1b2e solid 1px;
+            border-radius: 12px;
+            box-shadow: 1px 2px 10px #e5e5e5;
+            cursor: pointer;
+        }
+
+        .text-ellipsisl1 {
+            overflow: hidden;
+            /* 一行显示，不换行 */
+            white-space: nowrap;
+            /* 文本溢出 出现省略号 */
+            text-overflow: ellipsis;
+
+        }
+
+        .box-1 {
+            width: 252px;
+            height: 92px;
+            padding-top: 8px;
+            padding-bottom: 12px;
+        }
+
+        .box-1-2 {
+            width: 252px;
+            height: 18px;
+            display: flex;
+        }
+
+        .img {
+            vertical-align: middle;
+            padding-top: 1px;
+            padding-bottom: 0px;
+        }
+
+        .img-2 {
+            margin-right: 5px;
+        }
+
+        .green-text {
+            align-self: center;
+            width: 252px;
+            height: 18px;
+            line-height: 14px;
+            padding: 2px 4px;
+            margin-bottom: 12px;
+            margin-top: 6px;
+        }
+
+        .box-1-3 {
+            display: flex;
+            justify-content: left;
+            align-items: baseline;
+            cursor: pointer;
+            padding-right: 5px;
+        }
+
+        .a {
+            color: #ff0f23;
+            margin-left: auto;
+            width: 22px;
+            height: 22px;
+            background-color: #ffebf1;
+            text-align: center;
+            line-height: 22px;
+            border-radius: 50%;
+
+        }
+
+        .a:hover {
+            background-color: #ff0f23;
+            color: #fffdfd;
+            cursor: pointer;
+        }
+
+        .b {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 10px;
+            color: #ccc;
+            width: 16px;
+            height: 16px;
+            text-align: center;
+            line-height: 16px;
+        }
+
+        .b:hover {
+            cursor: pointer;
+            background-color: #c81623;
+            border-radius: 50%;
+        }
+
+        .font-common {
+            color: #ff0f23;
+            text-align: left;
+        }
+
+        i {
+            font-size: 16px;
+            font-weight: 700;
+            font-family: MicrosoftYahei-regular, Arial, Helvetica, sans-serif;
+        }
+
+        .c {
+            font-weight: 500;
+            font-family: JDZhengHT-EN-Regular;
+            font-size: 22px;
+            line-height: 14px;
+            text-align: left;
+        }
+
+        .sales {
+            margin-left: 10px;
+            color: #929292;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+            display: block;
+        }
+
+        .close-btn {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+            background-color: #888888;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+             z-index: 1001
+
+        }
+
+        .close-btn:hover {
+            color: #333;
+            border-radius: 50%;
+            background-color: #ff006f;
+
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+    <div class="big-box">
+
+        <div class="img">
+            <img src="https://img12.360buyimg.com/jdcms/s480x480_jfs/t1/378753/21/20541/33871/695b6649Fb531294a/e509add862ae0596.jpg.avif"
+                style="width: 240px;height:240px;">
+        </div>
+        <div class="box-1">
+            <div class="box-1-2">
+                <div class="img-2">
+                    <img src="//img11.360buyimg.com/imagetools/jfs/t1/274758/36/238/2219/67ce4f01Fb5fa4601/373b5ccb83c6a398.png"
+                        style="width:30px; height: 16px;">
+                </div>
+                <p class="text-ellipsisl1">
+                    小米（MI）17 Pro 12+256 冷烟紫 妙享背屏 徕卡光影大师 第五代骁龙8至尊版【赠话费券】
+                </p>
+            </div>
+            <div class="green-text">
+                <i style="color: rgb(10, 173, 72); padding-left: 0px;">领国家补贴减¥500</i>
+            </div>
+            <div class="box-1-3 font-common">
+                <i>￥</i>
+                <span class="c">4499.</span>
+                <span class="">00</span>
+                <span class="sales">销量100+</span>
+                <span class="iconfont icon-jiahao1 a"></span>
+            </div>
+
+        </div>
+
+        <span class="iconfont icon-guanbi b " id="product_close"></span>
+    </div>
+
+    <div class="overlay">
+        
+        <span class="close-btn">&times;</span>
+    </div>
+    <script>
+        let product_close_btn = document.querySelector('#product_close')
+        let close_btn = document.querySelector('.close-btn')
+        let overlay_elm = document.querySelector('.overlay')
+        let product_box_elm = document.querySelector('.big-box')
+
+        close_btn.addEventListener('click', () => overlay_elm.style.display = 'none')
+
+        product_close_btn.addEventListener('click', () => product_box_elm.style.display = 'none')
+        
+    </script>
+</body>
+
+</html>

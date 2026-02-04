@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      #div1 {
+        background-color: rgb(212, 138, 138);
+        width: 200px;
+        height: 200px;
+        border: 2px solid black;
+        padding: 10px;
+        margin: 20px;
+      }
+
+      #span1 {
+        width: 80px;
+        height: 80px;
+        background-color: rgb(130, 157, 130);
+        padding-left: 20px;
+        padding-right: 50px;
+      }
+
+      #btn1 {
+        width: 200px;
+        height: 50px;
+        padding: 8px;
+        margin: 9px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 
+    元素模式：不同的元素模式其布局和排列方式都不一样 
+        块元素（容器级别）：
+            1. 单独占父容器的一行，宽度是100%，高度会随着内容自动撑高
+            2. 可以设置宽高，可以设置四边的内外边距
+            3. 常见块元素：div、p、h1~h6、ul(li)
+        行内元素（文本级别）：
+            1. 多个行内元素会在父容器的同一行显示，若父容器放不下则会流到下一行
+            2. 不能设置宽高，仅能设置水平方向内外边距，垂直方向不生效。
+            3. 常见行内元素：span、b、i、u、s、a（较特殊，主要实现跳转功能）
+        行内块元素：
+            1. 多个行内或行内块或文本会在父容器同一行显示，若父容器放不下则会流到下一行
+            2. 可以设置宽高，可以设置四边的内外边距
+            3. 常见行内块元素：input、img、button
+    -->
+
+    <div id="div1">我是<br />div1号</div>
+    <div>div2号</div>
+
+    <span id="span1">span1号</span>
+    <span id="span2">span2号</span>
+
+    <div>
+      <span>span1</span>
+      <button id="btn1">button1</button>
+      hello
+      <button>button2</button>
+      world
+      <img src="./1.jpg" alt="" />
+
+      <input type="text" />
+    </div>
+  </body>
+</html>

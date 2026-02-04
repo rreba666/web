@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /* :root等价于html */
+      :root {
+        font-size: 20px;
+      }
+      input {
+        border-width: 1px;
+        outline: none;
+      }
+
+      /* 获取焦点 */
+      input:focus {
+        color: red;
+      }
+
+      p {
+        width: 100px;
+        border: 2px solid #ccc;
+      }
+      /* p::first-letter {
+        font-size: 30px;
+        color: red;
+      } */
+
+      /* 首行特殊样式 */
+      /* p::first-line {
+        color: skyblue;
+      } */
+
+      p::selection {
+        font-size: 50px;
+        color: orange;
+      }
+
+      .list {
+        width: 80px;
+        height: 80px;
+        border: 2px solid pink;
+      }
+
+      .list:hover {
+        font-size: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="list">哈哈哈</div>
+    <input type="text" placeholder="请输入" />
+    <p>
+      给梵蒂冈电饭锅规定换个地方更好活动分工好地方好地方规划对方过后烦得很电饭锅hdf好地方规划
+      好的饭h好的饭 好地方规划
+    </p>
+  </body>
+</html>

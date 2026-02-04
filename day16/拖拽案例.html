@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    .box {
+        width: 30px;
+        height: 30px;
+        border: solid 4px white;
+        background-color: #66ccff;
+        border-radius: 50%;
+        box-shadow: 0 1px 1px #ccc;
+        position: absolute;
+
+    }
+</style>
+
+<body>
+    <div class="box"></div>
+
+
+
+    <script>
+        let boxEle = document.querySelector('.box')
+
+        boxEle.addEventListener('mousedown', function (even) {
+            let downHight = event.clientY - boxEle.getBoundingClientRect().top
+            console.log(downHight);
+            let downLeft = even.clientX - boxEle.getBoundingClientRect().left
+            console.log(downLeft);
+
+            let moveHanlder = function (even) {
+                let moveX = even.clientX
+                let moveY = even.clientY
+
+                boxEle.style.left = moveX - downLeft + 'px'
+                boxEle.style.top = moveY - downHight + 'px'
+            }
+
+            document.addEventListener('mousemove', moveHanlder)
+
+            boxEle.addEventListener('mouseup', function () {
+                document.removeEventListener('mousemove', moveHanlder)
+            })
+        })
+
+
+
+
+    </script>
+</body>
+
+</html>

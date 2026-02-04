@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        body {
+            height: 2000px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>111</h1>
+    <h1>111</h1>
+    <h1>111</h1>
+    <h1>111</h1>
+    <h1>111</h1>
+    <input type="text" placeholder="请输入关键词搜索" id="keyword" />
+    <script>
+        // 实现原理：利用一个闭包变量（保存上一次执行时间）来记录上一次的执行时间，执行函数之前，获取当前时间，
+        // 和上一次执行时间进行一个对比，超过了规定的时间才执行。否则不执行
+
+
+        // 封装节流函数
+        function throttle(fn, wait = 500) {
+            let lastTime = 0
+            return function () {
+                let nowTime = Date.now()
+                if (nowTime - lastTime > wait) {
+                    fn.call(this, ...arguments)
+                    lastTime = nowTime
+                }
+
+            }
+
+
+        }
+
+        document.addEventListener('scroll', throttle(function (event) {
+            console.log('滚动了')
+            console.log('this=>', this) // document
+            console.log('event=>', event)
+
+        }, 1000))
+
+
+
+        // 实现原理：创建一个定时器，在指定的时间间隔之后运行代码。
+        // 当在n 秒内再次触发事件时，会自动清除上一次的时间器，再重新等待 n 秒后再执行。
+        let inputEle = document.getElementById('keyword')
+        inputEle.addEventListener('keyup', debounce(function (event) {
+            console.log('this', this)
+            console.log('event', event)
+        }), 700)
+
+
+        // 封装防抖函数
+        function debounce(fn, wait = 500) {
+            let timer
+            return function (...arg) {
+                if (timer) {
+                    clearTimeout(timer)
+                }
+
+                timer = setTimeout(() => {
+                    fn.apply(this, arg)
+                }, wait)
+
+    
+            }
+        }
+
+    </script>

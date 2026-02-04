@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .box {
+            font-family: "Microsoft YaHei";
+            background-image: url( ./img/2871b47ab4699576af74108134e6a49f.jpg) !important; 
+            background-repeat: no-repeat;
+            color: #ff006f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            height: 495px;
+            width: 608px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10% auto;
+            border-radius: 40px;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+            background-size: 608px 495px;
+            transition: transform 0.3s ease;
+        }
+
+        .box:hover {
+            transform: scale(1.02);
+        }
+
+        .time-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+
+        }
+
+        .main-time {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .time-digits {
+            font-size: 72px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-shadow:
+                1px 1px 0 #999,
+                2px 2px 0 #888,
+                3px 3px 0 #777;
+            font-weight: bold;
+        }
+
+        .date-info {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 22px;
+        }
+        .timezone{
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="time-container">
+
+            <div class="timezone">中国北京时间 UTC+8</div>
+
+            <div class="main-time">
+                <div class="time-digits">
+                    <span class="hour">20</span>
+                    <span class="time-colon">:</span>
+                    <span class="minute">06</span>
+                    <span class="time-colon">:</span>
+                    <span class="second">34</span>
+                </div>
+            </div>
+
+            <div class="date-info">
+                <div class="date">2026-01-20</div>
+                <div class="weekday">星期二</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function updateTime() {
+            const now = new Date();
+            document.querySelector('.hour').textContent = now.getHours().toString().padStart(2, '0');
+            document.querySelector('.minute').textContent = now.getMinutes().toString().padStart(2, '0');
+            document.querySelector('.second').textContent = now.getSeconds().toString().padStart(2, '0');
+
+            const year = now.getFullYear();
+            const month = (now.getMonth() + 1).toString().padStart(2, '0');
+            const day = now.getDate().toString().padStart(2, '0');
+            document.querySelector('.date').textContent = `${year}-${month}-${day}`;
+        }
+
+
+        updateTime();
+        setInterval(updateTime, 1000);
+
+
+
+    </script>
+</body>
+
+</html>

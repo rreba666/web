@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    .box {
+      padding: 5px;
+      width: 300px;
+      /* border: 1px solid #ccc; */
+      margin: 50px auto;
+    }
+
+    .box .header button {
+      padding: 5px 10px;
+      width: 100px;
+    }
+
+    .flex-between {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .box ul {
+      margin-top: 20px;
+    }
+
+    .box ul li {
+      list-style: none;
+      border-bottom-width: 1px;
+      border-bottom-color: #605d5d;
+      border-bottom-style: solid;
+      padding: 4px 0;
+    }
+
+    .box ul li a {
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <div class="header flex-between">
+      <input type="text" id="content" /> <button id="publish">发布</button>
+    </div>
+    <ul id="list">
+      <!-- <li class="flex-between">
+          <div>真精彩</div>
+          <a href="javascript:;" class="edit">编辑</a>
+          <a href="javascript:;" class="del">删除</a>
+        </li> -->
+    </ul>
+  </div>
+  <script>
+    // 缓存节点
+    const inputEle = document.getElementById('content')
+    const publishBtnEle = document.getElementById('publish')
+    const ulEle = document.getElementById('list')
+
+    let comments = JSON.parse(localStorage.getItem('comment') || '[]')
+
+
+
+    // 发布内容
+    publishBtnEle.addEventListener('click', function () {
+      publishContent()
+    })
+
+    document.addEventListener('DOMContentLoaded', function () {
+      // 渲染评论视图
+      renderCommentList()
+    })
+
+
+    function renderCommentList() {
+
+      let listHtml = ''
+      for (const ltem of comments) {
+        listHtml += `
+            <li class="flex-between">
+                <div>${ltem.content}</div>
+                <a href="javascript:;" class="edit">编辑</a>
+                <a href="javascript:;" class="del"  comment-id="${ltem.id}">删除</a>
+            </li>  `
+      }
+
+
+      ulEle.innerHTML = listHtml
+
+    }
+
+    // 获取内容并发布
+    function publishContent() {
+      let content = inputEle.value.trim()
+      if (!content) {
+        alert('内容不能为空')
+        return
+      }
+
+      let commentItem = { id: Date.now(), content }
+      comments.unshift(commentItem)
+
+      localStorage.setItem('comment', JSON.stringify(comments))
+
+      renderCommentList()
+      inputEle.value = ''
+
+    }
+
+
+
+
+    // 将删除的单击事件委托给ul
+    ulEle.addEventListener('click', function (event) {
+      if (
+        event.target.localName === 'a' &&
+        event.target.className === 'del') 
+        {
+        if (!confirm('确认删除吗')) {
+          return
+        }
+
+        let newComments = []
+
+        let commentID = parseInt( event.target.getAttribute('comment-id'))
+
+        for (const item of comments) {
+          if (item.id !== commentID) {
+            newComments.push(item)
+          }
+        }
+        comments = newComments
+        localStorage.setItem('comment', JSON.stringify(comments))
+
+        renderCommentList()
+      }
+    })
+  </script>
+</body>
+
+</html>

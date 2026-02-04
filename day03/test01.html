@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .clearfix:after {
+            /*伪元素是行内元素 正常浏览器清除浮动方法*/
+            content: "";
+            display: block;
+            clear: both;
+            height: 0;
+            /*解决浏览器兼容问题*/
+            visibility: hidden;
+            /*解决浏览器兼容问题*/
+        }
+
+        .clearfix {
+            zoom: 1;
+            /*兼容低版本IE浏览器*/
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+
+        }
+
+        .box1 {
+            height: 100px;
+            width: 100px;
+            background-color: blueviolet;
+            padding: 80px;
+            margin: 0 auto;
+            border: 10px solid;
+            text-align: center;
+            line-height: 100px;
+        }
+
+        .box2-pro {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 0px;
+
+        }
+
+        .box2 {
+            height: 0px;
+            width: 0px;
+            border-width: 100px;
+            border-style: solid;
+            border-top-color: transparent;
+            border-left: none;
+            border-right-color: rgb(153, 255, 113);
+            border-bottom-color: transparent;
+            ;
+
+        }
+
+        .box2-1 {
+            height: 0px;
+            width: 0px;
+            border-width: 100px;
+            border-style: solid;
+            border-top-color: transparent;
+            border-left-color: rgb(153, 255, 113);
+            border-right: none;
+            border-bottom-color: transparent;
+
+
+        }
+
+        .box3 {
+            height: 100px;
+            width: 100px;
+            background-color: rgb(243, 0, 207);
+            padding: 6px;
+            margin: 0 auto;
+            border: 2px solid;
+            box-sizing: border-box;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 84px;
+        }
+    </style>
+</head>
+
+<body class="clearfix">
+    <div class="box1"></div>
+    <div class="box2-pro">
+        <div class="box2"></div>
+        <div class="box2-1"></div>
+    </div>
+    <div class="box3"></div>
+
+</body>
+
+</html>

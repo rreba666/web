@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #box {
+            width: 100px;
+            height: 100px;
+            color: pink;
+            background-color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">JavaScript</div>
+    <button id="btn">变色</button>
+    <button id='reload'>刷新</button>
+
+
+    <script>
+        document.getElementById('btn').addEventListener("click", function () {
+            var box = document.getElementById('box')
+            box.style.color = 'red';
+            box.style.backgroundColor = '#39c5bb';
+        })
+
+        var reload = document.getElementById("reload");
+        reload.addEventListener("click",() => location.reload()); 
+    </script>
+</body>
+
+</html>

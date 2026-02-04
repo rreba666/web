@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        height: 2000px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>111</h1>
+    <h1>111</h1>
+    <h1>111</h1>
+    <h1>111</h1>
+    <h1>111</h1>
+    
+    <script>
+      // 函数节流：指事件触发后，过 n 秒后才执行一次，如果在 n 秒内又触发了事件，则不会重复执行
+      // 实现原理：利用一个闭包变量（保存上一次执行时间）来记录上一次的执行时间，执行函数之前，获取当前时间，
+      // 和上一次执行时间进行一个对比，超过了规定的时间才执行。否则不执行
+
+      // 节流一般多用于鼠标事件：如单击、滚动、移动
+
+      // 封装节流函数
+      function throttle(fn, wait = 500) {
+        let oldTime = 0 // 闭包私有变量，保存上一次执行的时间
+        return function () {
+          // 获取当前时间和上次执行时间进行对比，若时间间隔大于wait才执行，否则不执行
+          let nowTime = Date.now()
+          if (nowTime - oldTime > wait) {
+            fn.call(this, ...arguments) // fn.apply(this,arguments)
+            // 更新上一次执行的时间
+            oldTime = nowTime
+          }
+        }
+      }
+
+      document.addEventListener(
+        'scroll',
+        throttle(function (event) {
+          console.log('滚动了')
+          console.log('this=>', this) // document
+          console.log('event=>', event) // event
+        }, 500),
+      )
+    </script>
+  </body>
+</html>

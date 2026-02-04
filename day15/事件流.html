@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .flex-c-c {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .yeye {
+        width: 200px;
+        height: 200px;
+        border: 2px solid #ccc;
+        margin: 50px auto;
+      }
+
+      .parent {
+        width: 140px;
+        height: 140px;
+        border: 2px solid #6fb588;
+      }
+
+      .son {
+        width: 80px;
+        height: 80px;
+        border: 2px solid #3a79af;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="yeye flex-c-c" id="yeye">
+      <div class="parent flex-c-c" id="parent">
+        <div class="son" id="son"></div>
+      </div>
+    </div>
+
+    <script>
+      const yeyeEle = document.getElementById('yeye')
+      const parentEle = document.getElementById('parent')
+      const sonEle = document.getElementById('son')
+
+      yeyeEle.addEventListener('click', function () {
+        console.log('yeye')
+      },true) // true在捕获阶段执行
+
+      //   addEventListener第三个参数，是否在捕获阶段执行，默认为 false
+      parentEle.addEventListener('click', function () {
+        console.log('parent')
+      },false) // false在冒泡阶段执行
+
+      sonEle.addEventListener('click', function () {
+        console.log('son')
+      },true) // true在捕获阶段执行
+    </script>
+  </body>
+</html>

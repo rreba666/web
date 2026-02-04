@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+        var is_rember = 'ture';
+        var content = '111';
+        var car_type = '迈巴赫';
+        var is_finish = 'true';
+        var random_num = '?';
+        var phone = '11111111111';
+        var address = '九江';
+
+        var product_id = '01';
+        var class_name = '日用品';
+        var price = '￥40000000';
+        var inventory = '66';
+        var cover_img;
+        var order_id;
+        var total_price;
+
+
+
+        let string_1 = `${address}${car_type}的价格是${price},是否支付成功？${(is_finish == 'true' ? '是' : '否')}`
+        console.log(string_1);
+
+        const user = {
+            name: '张三',
+            root: 'admin'
+        };
+
+        const welcome = `欢迎, ${
+                user.root == 'admin' ? `管理员 ${user.name}` :
+                user.root == 'user' ? `用户 ${user.name}` : '访客'}`
+        console.log(welcome);
+
+
+    </script>
+</body>
+
+</html>

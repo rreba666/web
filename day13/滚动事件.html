@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            height: 2000px;
+        }
+
+        .top-srcoll {
+            width: 50px;
+            height: 50px;
+            background-color: #ff006f;
+            position: fixed;
+            right: 0;
+            bottom: 100px;
+        }
+
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>11111111111111</h1>
+    <h1>11111111111111</h1>
+    <h1>11111111111111</h1>
+    <h1>11111111111111</h1>
+    <h1>11111111111111</h1>
+    <h1>11111111111111</h1>
+    <h1>11111111111111</h1>
+    <h1>11111111111111</h1>
+    <h1>11111111111111</h1>
+    <h1>11111111111111</h1>
+    <h1>11111111111111</h1>
+    <div class="top-srcoll hide" id='topScroll'></div>
+
+    <script>
+        let top_sroll_elm = document.querySelector('#topScroll')
+
+        document.addEventListener('scroll', function () {
+            let pageScrollTop = document.documentElement.scrollTop || document.body.scrollTop
+            if (pageScrollTop >= 300) {
+                top_sroll_elm.classList.remove('hide')
+            }
+            else {
+                top_sroll_elm.classList.add('hide')
+            }
+        })
+
+
+        top_sroll_elm.addEventListener('click', () => window.scrollTo(0, 0))
+    </script>
+</body>
+
+</html>

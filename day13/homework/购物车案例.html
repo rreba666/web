@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>购物车</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family:  'Microsoft YaHei';
+            background-color: #f5f7fa;
+            background-image: url('./img/bg.webp');
+
+        }
+
+        .shopping-cart {
+            width: 1200px;
+            min-height: 500px;
+            background-color: rgba(0, 0, 0, .5);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin: 30px auto;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .shopping-cart:hover {
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-image-container {
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+        }
+
+        .product-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 2px solid #e1e5eb;
+            transition: all 0.3s ease;
+        }
+
+        .product-image:hover {
+            transform: scale(1.05);
+            border-color: #4a90e2;
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+        }
+
+        .product>div {
+            flex-shrink: 0;
+        }
+
+        .product {
+            width: 1100px;
+            height: 110px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 1px solid #e1e5eb;
+            margin: 15px auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            border-radius: 10px;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            /* opacity: 0.5; */
+        }
+
+        .product:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border-color: #c1c9d6;
+        }
+
+        .product::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #4a90e2, #63b3ed);
+            border-radius: 4px 0 0 4px;
+        }
+
+        .buy {
+            width: 320px;
+            height: 100px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 35px;
+            border-radius: 12px;
+            margin-right: 100px;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            color: white;
+
+            position: fixed;
+            bottom: 0;
+            right: -100px;
+            overflow: hidden;
+
+        }
+
+
+
+        .total-info {
+            position: relative;
+            width: 100%;
+        }
+
+        .buy-btn {
+            position: absolute;
+            right: 0;
+            top: 20px;
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            letter-spacing: 0.5px;
+        }
+
+        .buy-btn:hover {
+            background-color: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+        }
+
+        .buy-btn:active {
+            transform: translateY(0);
+        }
+
+        .wrap {
+            width: 1400px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 0 auto;
+        }
+
+        .product-name {
+            width: 120px;
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .product-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #4a90e2;
+            transition: all 0.2s ease;
+        }
+
+        .product-checkbox:hover {
+            transform: scale(1.1);
+        }
+
+        .count-btn {
+            width: 34px;
+            height: 34px;
+            border: 2px solid #4a90e2;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            border-radius: 50%;
+            margin: 0 8px;
+            color: #4a90e2;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .count-btn:hover {
+            background-color: #4a90e2;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .count-btn:active {
+            transform: scale(0.95);
+        }
+
+        .product-sum,
+        .product-price,
+        .product-totle {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            padding: 5px 10px;
+            border-radius: 6px;
+            background-color: rgba(248, 249, 250,.5);
+        }
+
+        .product-price {
+            color: #e74c3c;
+            background-color: rgba(231, 76, 60, 0.1);
+        }
+
+        .product-totle {
+            color: #39c5bb;
+            background-color: rgba(39, 174, 96, 0.1);
+            font-weight: 700;
+        }
+
+        /* 全选框样式 */
+        .all-box {
+            width: 1100px;
+            margin: 20px auto 25px;
+            display: flex;
+            align-items: center;
+            padding: 15px 25px;
+            background-color: rgba(240, 244, 248,.5);
+            border-radius: 10px;
+            border-left: 4px solid #4a90e2;
+        }
+
+        .all {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #4a90e2;
+            margin-right: 12px;
+        }
+
+        .all-box label {
+            font-size: 17px;
+            font-weight: 600;
+            color: #2c3e50;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .all-box label:hover {
+            color: #4a90e2;
+        }
+
+        /* 删除所选商品按钮 */
+        .del-choose-box {
+            width: 1100px;
+            margin: 20px auto;
+            display: flex;
+            justify-content: start;
+            padding: 0 25px;
+        }
+
+        .del-choose {
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 154, 158, 0.4);
+            letter-spacing: 0.5px;
+        }
+
+        .del-choose:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 154, 158, 0.6);
+            background: linear-gradient(135deg, #ff7b7b 0%, #ffb8b8 100%);
+        }
+
+        .del-choose:active {
+            transform: translateY(0);
+        }
+
+        /* 删除单个商品按钮 */
+        .del-btn {
+            padding: 8px 18px;
+            background-color: #ffebee;
+            color: #e53935;
+            border: 2px solid #ffcdd2;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+
+        .del-btn:hover {
+            background-color: #ffcdd2;
+            color: #c62828;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(229, 57, 53, 0.2);
+        }
+
+        .del-btn:active {
+            transform: translateY(0);
+        }
+
+        /* 总价和件数样式 */
+        .total-info div {
+            margin-bottom: 8px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .total-info .total-items,
+        .total-info .total-amount {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffeb3b;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            margin-left: 5px;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1400px) {
+
+            .wrap,
+            .shopping-cart,
+            .product,
+            .all-box,
+            .del-choose-box {
+                width: 95%;
+            }
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="shopping-cart">
+
+            <div class="product">
+                <div class="product-name"></div>
+                <div class="product-sum"></div>
+                <div class="product-price"></div>
+                <div class="product-totle"></div>
+            </div>
+        </div>
+        <div class="buy">
+            <div class="total-info">
+                <div>商品件数: <span class="total-items">0</span>件</div>
+                <div>总金额: <span class="total-amount">0</span>￥</div>
+                <button class="buy-btn">购买</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const products = [
+            { id: 1, name: '草莓', img: './img/Strawberry.webp', price: 46 },
+            { id: 2, name: '雪梨', img: './img/Pear.webp', price: 62 },
+            { id: 3, name: '芒果', img: './img/Mango.webp', price: 87 },
+            { id: 4, name: '李家华夫饼', img: './img/Waffle.webp', price: 144 },
+            { id: 5, name: '冰淇淋', img: './img/IceCream.webp', price: 176 },
+            { id: 6, name: '生姜', img: './img/Ginger.webp', price: 231 },
+            { id: 7, name: '橙色药丸', img: './img/Pellets.webp', price: 126 },
+            { id: 8, name: '开心小花', img: './img/Sunflower.webp', price: 78 },
+            { id: 9, name: '皇家枕头', img: './img/Regal_pillow.webp', price: 219 },
+            { id: 10, name: '孙子兵法', img: './img/ArtofWar.webp', price: 166 },
+            { id: 11, name: '壶铃', img: './img/Kettlebell.webp', price: 167 },
+            { id: 12, name: '古钱币', img: './img/OldCoin.webp', price: 88 },
+            { id: 13, name: '冠军腰带', img: './img/ChampionBelt.webp', price: 296 },
+            { id: 14, name: '尼利的宝典', img: './img/Codex.webp', price: 52 },
+            { id: 15, name: '日冕', img: './img/Sundial.webp', price: 172 },
+        ];
+        let totalAmountEle = document.querySelector('.total-amount');
+        let totalItemsEle = document.querySelector('.total-items');
+
+        let shoppingCart = document.querySelector('.shopping-cart')
+        let cartItems = [];
+
+        shoppingCart.innerHTML = '';
+
+        // 全选框容器
+        let allContainer = document.createElement('div');
+        allContainer.className = 'all-box';
+
+        // 全选框
+        let allEle = document.createElement('input');
+        allEle.type = 'checkbox'
+        allEle.className = 'all'
+        allEle.id = 'all'
+
+        // 全选框描述
+        let allLabel = document.createElement('label');
+        allLabel.htmlFor = 'all';
+        allLabel.textContent = '全选';
+
+        // 删除所选内容按钮容器
+        let delChooseContainer = document.createElement('div')
+        delChooseContainer.className = 'del-choose-box';
+
+        // 删除所选内容按钮
+        let delChooseEle = document.createElement('button')
+        delChooseEle.type = 'button'
+        delChooseEle.className = 'del-choose'
+        delChooseEle.textContent = '删除所选商品'
+
+        // 将选择删除放入容器
+        delChooseContainer.appendChild(delChooseEle)
+
+
+
+
+        // 将全选框及文本属性放入容器        
+        allContainer.appendChild(allEle)
+        allContainer.appendChild(allLabel)
+
+
+
+        // 添加全选框
+        shoppingCart.appendChild(allContainer)
+        // <div><input id="all" type="checkbox" />全选</div>
+
+        for (let i = 0; i < products.length; i++) {
+            let product = products[i]
+            let count = 1
+            let isChecked = true;
+
+
+            let cartItem = {
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                img: product.img,
+                count: count,
+                checked: isChecked
+            };
+            cartItems.push(cartItem)
+
+
+            // 商品对象
+            let productEle = document.createElement('div');
+            productEle.className = 'product';
+
+            // 商品名称容器
+            let productNameContainer = document.createElement('div');
+            productNameContainer.className = 'product-name';
+
+            // 复选框容器
+            let checkboxContainer = document.createElement('div');
+            checkboxContainer.className = 'checkbox-container';
+
+            // 复选框
+            let checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.className = 'product-checkbox';
+            checkbox.checked = isChecked;
+
+            // 商品名字
+            let productNameEle = document.createElement('div');
+            productNameEle.textContent = product.name;
+            productNameEle.style.marginLeft = '10px';
+
+            // 复选框商品名
+            checkboxContainer.appendChild(checkbox);
+            checkboxContainer.appendChild(productNameEle);
+            productNameContainer.appendChild(checkboxContainer);
+
+            // 商品图片容器
+            let imgContainer = document.createElement('div')
+            imgContainer.className = 'img-container'
+
+            // 商品图片
+            let imgEle = document.createElement('img')
+            imgEle.className = 'product-img'
+            imgEle.src = product.img
+            imgEle.style.width = '60px';
+            imgEle.style.height = '60px';
+            imgEle.style.borderRadius = '8px';
+            imgEle.style.marginLeft = '15px';
+
+            // 将图片放入容器
+            imgContainer.appendChild(imgEle)
+
+            // 价格
+            let productPriceEle = document.createElement('div');
+            productPriceEle.className = 'product-price';
+            productPriceEle.textContent = `单价: ${product.price}￥`;
+
+            // 数量按钮容器
+            let container = document.createElement('div');
+            container.className = 'container';
+
+            // -按钮   
+            let dleBtn = document.createElement('div');
+            dleBtn.className = 'count-btn';
+            dleBtn.textContent = '-';
+
+            // 商品数量
+            let productSumEle = document.createElement('div');
+            productSumEle.className = 'product-sum';
+            productSumEle.textContent = `数量: ${count}`;
+
+            // +按钮
+            let addBtn = document.createElement('div');
+            addBtn.className = 'count-btn';
+            addBtn.textContent = '+';
+
+            container.appendChild(dleBtn)
+            container.appendChild(productSumEle)
+            container.appendChild(addBtn)
+
+            // 总价
+            let productTotleEle = document.createElement('div');
+            productTotleEle.className = 'product-totle';
+            productTotleEle.textContent = `总价: ${product.price * count}￥`;
+
+
+
+            // 删除按钮
+            let delBtnEle = document.createElement('button')
+            delBtnEle.type = 'button'
+            delBtnEle.className = 'del-btn';
+            delBtnEle.textContent = '删除商品'
+
+            // 复选框点击
+            checkbox.addEventListener('change', function () {
+                isChecked = this.checked;
+                cartItem.checked = isChecked;
+                updataAllCheckBox()
+                updataTotal();
+            });
+
+
+            // 删除商品
+            delBtnEle.addEventListener('click', () => {
+                productEle.remove() 
+
+                for (let i = 0; i < cartItems.length; i++) {  // 块级作用域
+                    if (cartItems[i].id === product.id) {
+                        cartItems.splice(i, 1)
+                        break;
+                    }
+
+                }
+                updataAllCheckBox()
+                updataTotal();
+            })
+
+            // 减少数量
+            dleBtn.addEventListener('click', () => {
+                if (count > 1) {
+                    count--;
+                    productSumEle.textContent = `数量: ${count}`
+                    productTotleEle.textContent = `总价: ${product.price * count}￥`;
+                    cartItem.count = count;
+                    updataTotal()
+                }
+            })
+
+            // 增加数量
+            addBtn.addEventListener('click', () => {
+                count++;
+                productSumEle.textContent = `数量: ${count}`
+                productTotleEle.textContent = `总价: ${product.price * count}￥`;
+                cartItem.count = count;
+                updataTotal()
+            })
+
+
+
+            productEle.appendChild(productNameContainer)
+            productEle.appendChild(imgContainer)
+            productEle.appendChild(productPriceEle)
+            productEle.appendChild(container)
+            productEle.appendChild(productTotleEle)
+            productEle.appendChild(delBtnEle)
+
+
+
+            shoppingCart.appendChild(productEle);
+
+        }
+
+
+        // 添加选择删除按钮
+        shoppingCart.appendChild(delChooseContainer)
+
+
+
+        // 全选按钮事件
+        allEle.addEventListener('click', () => {
+            let checked = allEle.checked
+
+            cartItems.forEach(function name(cartItem) {
+                cartItem.checked = checked
+            })
+
+            let updataCheck = document.querySelectorAll('.product-checkbox');
+            for (const item of updataCheck) {
+                item.checked = checked
+            }
+
+            updataTotal();
+        })
+
+
+        // 删除所选商品
+        delChooseEle.addEventListener('click', () => {
+            // 从后往前 防止删除跳跃
+            for (let i = cartItems.length - 1; i >= 0; i--) {
+                if (cartItems[i].checked) {
+
+                    let productEles = document.querySelectorAll('.product')
+                    if (productEles[i]) {
+                        productEles[i].remove()
+                    }
+
+                    cartItems.splice(i, 1);
+                }
+            }
+
+            // 更新全选框和总价
+            updataAllCheckBox();
+            updataTotal();
+        });
+
+        // 更新总价
+        function updataTotal() {
+            let total = 0
+            let checkedItems = 0
+
+            for (let i = 0; i < cartItems.length; i++) {
+                let item = cartItems[i];
+                if (item.checked) {
+                    total += item.price * item.count;
+                    checkedItems++;
+                }
+            }
+
+            totalAmountEle.textContent = total;
+            totalItemsEle.textContent = checkedItems;
+
+            updataAllCheckBox()
+        }
+
+        // 更新全选框状态
+        function updataAllCheckBox() {
+            let allChecked = true;
+            let allUnchecked = true;
+            let allCheckBoxes = document.querySelectorAll('.product-checkbox')
+            for (const item of allCheckBoxes) {
+                if (item.checked) {
+                    allUnchecked = false
+                } else {
+                    allChecked = false
+                }
+            }
+
+            if (allChecked) {
+                allEle.checked = true
+            } else {
+                allEle.checked = false
+            }
+        }
+
+
+
+        updataTotal();
+    </script>
+</body>
+
+</html>
